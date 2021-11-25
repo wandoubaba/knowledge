@@ -65,6 +65,6 @@ git push --set-upstream origin master
 ```bash
 # 关联另一个远程仓库
 git remote set-url --add origin git@gitee.com:wandoubaba517/personal.git
-# 本地推送时可以同时推送到两个远程库
-git push origin master:master
+# 推送当前分支并建立与远程上游的跟踪
+git push --set-upstream origin master
 ```
