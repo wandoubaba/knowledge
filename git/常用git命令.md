@@ -67,4 +67,6 @@ git push --set-upstream origin master
 git remote set-url --add origin git@gitee.com:wandoubaba517/personal.git
 # 推送当前分支并建立与远程上游的跟踪
 git push --set-upstream origin master
+# 以后再推送时直接push就行了
+git push
 ```
