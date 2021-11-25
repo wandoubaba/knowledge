@@ -2,21 +2,6 @@
 
 ---
 
-## 给本地的一个文件夹添加git管理并关联远程仓库
-
-```bash
-# 在这个文件夹内执行
-git init
-# 给本地的一个git文件夹关联一个远程服务器
-git remote add origin git@gitee.com:wandoubaba517/ps.git
-# 对目录内所有文件建立跟踪
-git add .
-# 提交本次跟踪
-git commit -m "这次提交的说明"
-# 推送当前分支并建立与远程上游的跟踪
-git push --set-upstream origin master
-```
-
 ## 从远程克隆一个仓库
 
 ```bash
@@ -58,4 +43,28 @@ git commit -m "本次提交说明内容"
 git push    # 推送到默认关联的远程分支
 git push origin # 有些时候当关联有问题时，可能需要手写origin
 git push origin bob # 可以指定目标远程分支
+```
+
+## 给本地的一个文件夹添加git管理并关联远程仓库
+
+```bash
+# 在这个文件夹内执行
+git init
+# 给本地的一个git文件夹关联一个远程服务器
+git remote add origin git@gitee.com:wandoubaba517/ps.git
+# 对目录内所有文件建立跟踪
+git add .
+# 提交本次跟踪
+git commit -m "这次提交的说明"
+# 推送当前分支并建立与远程上游的跟踪
+git push --set-upstream origin master
+```
+
+## 在一个本地目录上添加多个远程仓库
+
+```bash
+# 关联另一个远程仓库
+git remote set-url --add origin git@gitee.com:wandoubaba517/personal.git
+# 本地推送时可以同时推送到两个远程库
+git push origin master:master
 ```
