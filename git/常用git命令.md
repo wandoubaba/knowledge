@@ -24,6 +24,8 @@ git clone https://gitee.com/polaris-arvin_admin/callapp_mrcp.git
 git branch -a
 # 切换分支
 git checkout develop
+# 创建一个分支同时切换到这个新分支
+git checkout -b iss053
 ```
 
 ## 代码推拉
