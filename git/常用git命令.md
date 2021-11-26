@@ -26,8 +26,6 @@ git branch -a
 git checkout develop
 # 创建一个名为iss053的分支同时切换到这个新分支
 git checkout -b iss053
-<<<<<<< HEAD
-=======
 # 在iss053分支提交修改
 git commit -a -m "添加一些git分支操作"
 # 将iss053分支的变更合并到master分支
@@ -36,7 +34,6 @@ git merge iss053
 # 合并后可以删iss053分支
 git branch -d iss053
 # 在iss053上做了一些修改
->>>>>>> iss053
 ```
 
 ## 代码推拉
