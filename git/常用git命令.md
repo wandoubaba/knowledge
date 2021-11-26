@@ -26,6 +26,7 @@ git branch -a
 git checkout develop
 # 创建一个分支同时切换到这个新分支
 git checkout -b iss053
+# 在master上做了一些修改
 ```
 
 ## 代码推拉
