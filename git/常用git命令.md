@@ -33,7 +33,7 @@ git checkout master
 git merge iss053
 # 合并后可以删iss053分支
 git branch -d iss053
-# 在iss053上做了一些修改
+# 如果合并时发现冲突，需要手动处理一下
 ```
 
 ## 代码推拉
