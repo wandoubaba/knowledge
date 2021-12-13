@@ -44,7 +44,7 @@ gmake install
 
 # 安装libatomic
 yum install -y libatomic
-
+yum install -y uuid-devel libuuid-devel
 # 单独下载libks源码（需要cmake 3.7.2以上版本）
 cd /usr/local/src
 git clone https://github.com/signalwire/libks.git
@@ -66,13 +66,19 @@ yum install -y alsa-lib-devel bison broadvoice-devel bzip2 curl-devel libdb4-dev
 # 安装python组件
 curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip-2.7.py
 python get-pip-2.7.py
+#如果pip报错了 [Errno 101] \xe7\xbd\x91\xe7\xbb\x9c\xe4\xb8\x8d\xe5\x8f\xaf\xe8\xbe\xbe',)': /packages/27/79/8a850fe3496446ff0d584327ae44e7500daf6764ca1a382d2d02789accf7/pip-20.3.4-py2.py3-none-any.whl
+这里报错了说明你根本装不上，用下面的装
+wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
+python get-pip.py -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+这两个命令用完之后使用pip install 后面要加上
+-i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
 # 验证pip是否安装成功
 pip --version
 # pip安装python组件
 pip install pydub
 pip install python-ESL
 pip install pika
-pip install dbutils
+pip install dbutils （python 2.7 is not support dbutils炸裂）
 ```
 
 ## 开始安装
