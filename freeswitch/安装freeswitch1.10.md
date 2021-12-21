@@ -44,13 +44,7 @@ gmake install
 
 # 安装libatomic
 yum install -y libatomic
-<<<<<<< HEAD
 yum install -y uuid-devel libuuid-devel
-=======
-# 安装uuid
-yum install -y uuid-devel libuuid-devel
-
->>>>>>> f29b6cb (fs1.10安装补充)
 # 单独下载libks源码（需要cmake 3.7.2以上版本）
 cd /usr/local/src
 git clone https://github.com/signalwire/libks.git
