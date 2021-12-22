@@ -75,10 +75,11 @@ python get-pip.py -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirro
 # 验证pip是否安装成功
 pip --version
 # pip安装python组件
-pip install pydub
-pip install python-ESL
-pip install pika
-pip install dbutils （python 2.7 is not support dbutils炸裂）
+pip install pydub -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+pip install python-ESL -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+pip install pika -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+pip install DBUtils==2.0.3  -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+# pip install dbutils （python 2.7 is not support dbutils炸裂）
 ```
 
 ## 开始安装
