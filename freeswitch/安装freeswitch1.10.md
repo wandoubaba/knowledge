@@ -148,6 +148,8 @@ make hd-sounds-install
 make hd-moh-install
 make sounds-install
 make moh-install
+
+# make moh-install && make sounds-install && make hd-moh-install && make hd-sounds-install && make uhd-moh-install && make uhd-sounds-install && make cd-moh-install && make cd-sounds-install
 ```
 
 - 建立软连接
