@@ -10,7 +10,15 @@
 
 ```bash
 yum update -y
+# 安装fs依赖
+yum install -y http://files.freeswitch.org/freeswitch-release-1-6.noarch.rpm epel-release
+# 安装ffmpeg需要
+rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
+rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-1.el7.nux.noarch.rpm
+
 yum install -y yum-utils git gcc gcc-c++ automake autoconf libtool libtiff-devel libjpeg-devel openssl-devel vim
+
+yum install -y alsa-lib-devel bison broadvoice-devel bzip2 curl-devel libdb4-devel e2fsprogs-devel erlang flite-devel g722_1-devel gdbm-devel gnutls-devel ilbc2-devel ldns-devel libcodec2-devel libcurl-devel libedit-devel libidn-devel libmemcached-devel libogg-devel libsilk-devel libsndfile-devel libtheora-devel libuuid-devel libvorbis-devel libxml2-devel lua-devel lzo-devel ncurses-devel net-snmp-devel opus-devel pcre-devel perl perl-ExtUtils-Embed pkgconfig portaudio-devel postgresql-devel python-devel python-devel soundtouch-devel speex-devel sqlite-devel unbound-devel unixODBC-devel which yasm zlib-devel libshout-devel libmpg123-devel lame-devel rpm-build libX11-devel libyuv-devel swig wget ffmpeg ffmpeg-devel
 
 # 单独下载spandsp源码
 cd /usr/local/src
@@ -43,37 +51,24 @@ gmake
 gmake install
 
 # 安装libatomic
-yum install -y libatomic
-yum install -y uuid-devel libuuid-devel
+yum install -y libatomic uuid-devel libuuid-devel
+
 # 单独下载libks源码（需要cmake 3.7.2以上版本）
 cd /usr/local/src
 git clone https://github.com/signalwire/libks.git
+cd libks
 cmake .
 make
 make install
 
-
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
-
-# 安装fs依赖
-yum install -y http://files.freeswitch.org/freeswitch-release-1-6.noarch.rpm epel-release
-# 安装ffmpeg需要
-rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
-rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-1.el7.nux.noarch.rpm
-
-yum install -y alsa-lib-devel bison broadvoice-devel bzip2 curl-devel libdb4-devel e2fsprogs-devel erlang flite-devel g722_1-devel gdbm-devel gnutls-devel ilbc2-devel ldns-devel libcodec2-devel libcurl-devel libedit-devel libidn-devel libmemcached-devel libogg-devel libsilk-devel libsndfile-devel libtheora-devel libuuid-devel libvorbis-devel libxml2-devel lua-devel lzo-devel ncurses-devel net-snmp-devel opus-devel pcre-devel perl perl-ExtUtils-Embed pkgconfig portaudio-devel postgresql-devel python-devel python-devel soundtouch-devel speex-devel sqlite-devel unbound-devel unixODBC-devel which yasm zlib-devel libshout-devel libmpg123-devel lame-devel rpm-build libX11-devel libyuv-devel swig wget ffmpeg ffmpeg-devel
 
 # 安装python组件
 curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip-2.7.py
-python get-pip-2.7.py
-#如果pip报错了 [Errno 101] \xe7\xbd\x91\xe7\xbb\x9c\xe4\xb8\x8d\xe5\x8f\xaf\xe8\xbe\xbe',)': /packages/27/79/8a850fe3496446ff0d584327ae44e7500daf6764ca1a382d2d02789accf7/pip-20.3.4-py2.py3-none-any.whl
-这里报错了说明你根本装不上，用下面的装
-wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
-python get-pip.py -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-这两个命令用完之后使用pip install 后面要加上
+python get-pip-2.7.py -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+#这两个命令用完之后使用pip install 后面要加上
 -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-# 验证pip是否安装成功
-pip --version
+# 验证pip是否安装成功可以用 `pip --version`
 # pip安装python组件
 pip install pydub -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
 pip install python-ESL -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
@@ -126,9 +121,9 @@ xml_int/mod_xml_curl
 - 开始编译安装
 
 ```bash
-./configure --with-python=/usr/bin/python2.7 --with-lua=/usr/bin/lua --enable-core-pgsql-support
-# 如果在spandsp位置报错，可以尝试执行下面这句
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+./configure --with-python=/usr/bin/python2.7 --with-lua=/usr/bin/lua --enable-core-pgsql-support
+# 如果在spandsp位置报错，可能是忘export那一句
 make
 #make mod_cdr_pg_csv-install
 make mod_unimrcp-install
@@ -140,13 +135,13 @@ make install
 - 安装音频文件（英文）
 
 ```bash
-make cd-sounds-install
-make cd-moh-install
-make uhd-sounds-install
-make uhd-moh-install
-make hd-sounds-install
-make hd-moh-install
-make sounds-install
+make cd-sounds-install && \
+make cd-moh-install && \
+make uhd-sounds-install && \
+make uhd-moh-install && \
+make hd-sounds-install && \
+make hd-moh-install && \
+make sounds-install && \
 make moh-install
 
 # make moh-install && make sounds-install && make hd-moh-install && make hd-sounds-install && make uhd-moh-install && make uhd-sounds-install && make cd-moh-install && make cd-sounds-install
@@ -183,7 +178,7 @@ vim /usr/local/freeswitch/conf/autoload_configs/modules.conf.xml
 添加配置
 
 ```xml
-    <load module="mod_cdr_pg_csv"/>
+    <!-- <load module="mod_cdr_pg_csv"/> -->
     <load module="mod_unimrcp"/>
     <!--<load module="mod_vad"/>-->
 ```
@@ -282,7 +277,7 @@ vim /usr/local/freeswitch/conf/autoload_configs/event_socket.conf.xml
 
 - 配置端口
 
-在`/var/local/freeswitch/conf/vars.xml`文件中：
+在`/usr/local/freeswitch/conf/vars.xml`文件中：
 
 ```xml
 <!-- sip端口：终端通过tcp协议连接到这个端口，默认5060 -->
@@ -291,7 +286,13 @@ vim /usr/local/freeswitch/conf/autoload_configs/event_socket.conf.xml
 <X-PRE-PROCESS cmd="set" data="internal_tls_port=5061"/>
 ```
 
-在`/var/local/freeswitch/conf/sip_profiles/internal.xml`文件中：
+```xml
+<!-- 把原来的stun协议的地址改成下面的内容 -->
+<X-PRE-PROCESS cmd="stun-set" data="external_rtp_ip=xxx.xxx.xxx.xxx"/>
+<X-PRE-PROCESS cmd="stun-set" data="external_sip_ip=*.*.*.*"/>
+```
+
+在`/usr/local/freeswitch/conf/sip_profiles/internal.xml`文件中：
 
 ```xml
 <!-- ws端口：通过ws协议使用webrtc时需要连接到这个端口，默认5066 -->
@@ -302,7 +303,7 @@ vim /usr/local/freeswitch/conf/autoload_configs/event_socket.conf.xml
 
 - 默认密码
 
-在`/var/local/freeswitch/conf/vars.xml`文件中：
+在`/usr/local/freeswitch/conf/vars.xml`文件中：
 
 ```xml
 <!-- 初始的1000~1019分机使用的默认密码，建议修改 -->
