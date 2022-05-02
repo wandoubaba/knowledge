@@ -61,6 +61,15 @@ cmake .
 make
 make install
 
+# 单独安装opus-dev（否则在freeswitch里make时可能会报You must install libopus-dev to build mod_opus）
+cd /usr/local/src
+wget https://archive.mozilla.org/pub/opus/opus-1.3.1.tar.gz
+tar zxvf opus-1.3.1.tar.gz
+cd opus-1.3.1
+./configure
+make
+make install
+
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 
 # 安装python组件
@@ -101,6 +110,8 @@ formats/mod_shout
 languages/mod_python
 #event_handlers/mod_cdr_pg_csv
 asr_tts/mod_unimrcp
+#开启freeswitch自带的http状态界面
+xml_int/mod_xml_rpc
 ```
 
 如果需要使用mod_xml_curl的话
@@ -129,6 +140,7 @@ make
 make mod_unimrcp-install
 # 如果需要xml_curl模块的话
 make mod_xml_curl-install
+make mod_xml_rpc-install
 make install
 ```
 
@@ -157,7 +169,7 @@ sudo ln -sf /usr/local/freeswitch/bin/fs_cli /usr/local/bin/
 - 配置mod
 
 ```bash
-vim /usr/local/freeswitch/conf/autoload_configs/modules.conf.xml
+sudo vim /usr/local/freeswitch/conf/autoload_configs/modules.conf.xml
 ```
 
 在前3行开启
@@ -173,6 +185,7 @@ vim /usr/local/freeswitch/conf/autoload_configs/modules.conf.xml
 ```xml
     <load module="mod_python"/>
     <load module="mod_shout"/>
+    <load module="mod_xml_rpc"/>
 ```
 
 添加配置
