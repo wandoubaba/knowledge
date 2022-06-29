@@ -2,6 +2,8 @@
 
 ---
 
+> 2022年6月，这个文档已经失效，按照这个文档操作将不会成功，转至Debian11编译安装FreeSWITCH1.10，亲测成功。
+
 ## 安装centos7.9(2009)操作系统
 
 略
@@ -147,13 +149,13 @@ make install
 - 安装音频文件（英文）
 
 ```bash
-make cd-sounds-install && \
-make cd-moh-install && \
-make uhd-sounds-install && \
-make uhd-moh-install && \
-make hd-sounds-install && \
-make hd-moh-install && \
-make sounds-install && \
+make cd-sounds-install
+make cd-moh-install
+make uhd-sounds-install
+make uhd-moh-install
+make hd-sounds-install
+make hd-moh-install
+make sounds-install
 make moh-install
 
 # make moh-install && make sounds-install && make hd-moh-install && make hd-sounds-install && make uhd-moh-install && make uhd-sounds-install && make cd-moh-install && make cd-sounds-install
