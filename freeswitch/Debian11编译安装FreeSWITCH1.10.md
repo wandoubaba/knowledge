@@ -114,26 +114,23 @@ source ~/.bashrc
 
 ## 安装lua和luarocks环境
 
-### 下载并安装lua5.4.4
+### 安装lua
 
 > lua安装包的下载地址：<http://www.lua.org/ftp/>
 
 ```shell
 apt install -y build-essential libreadline-dev unzip
-```
-
-```shell
 cd /usr/src
-wget http://www.lua.org/ftp/lua-5.4.4.tar.gz
-tar zxvf lua-5.4.4.tar.gz
-cd lua-5.4.4
+wget http://www.lua.org/ftp/lua-5.2.4.tar.gz
+tar zxvf lua-5.2.4.tar.gz
+cd lua-5.2.4
 make linux test
 make install
 ```
 
-> 合并命令：`cd /usr/src && wget http://www.lua.org/ftp/lua-5.4.4.tar.gz`，下载成功后再执行`tar zxvf lua-5.4.4.tar.gz && cd lua-5.4.4.tar.gz && make linux test && make install && cd ..`
+> 合并命令：`cd /usr/src && wget http://www.lua.org/ftp/lua-5.2.4.tar.gz`，下载成功后再执行`tar zxvf lua-5.2.4.tar.gz && cd lua-5.2.4 && make linux test && make install && cd ..`
 
-### 下载并安装luarocks3.9.0
+### 安装luarocks3.9.0
 
 > luarocks安装包的下载地址<https://luarocks.github.io/luarocks/releases/>
 
@@ -147,7 +144,20 @@ make
 make install
 ```
 
-> 合并命令：`cd /usr/src && wget https://luarocks.github.io/luarocks/releases/luarocks-3.9.0.tar.gz`，下载成功后再执行 `tar zxfv luarocks-3.9.0.tar.gz && cd luarocks-3.9.0 && ./configure && make && make install && cd ..`
+> 合并命令：`cd /usr/src && wget https://luarocks.github.io/luarocks/releases/luarocks-3.9.0.tar.gz`，下载成功后再执行`tar zxfv luarocks-3.9.0.tar.gz && cd luarocks-3.9.0 && ./configure && make && make install && cd ..`
+
+## 安装python2.7和对应的pip（非必要）
+
+```shell
+apt install python
+cd /usr/src
+wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
+python get-pip.py
+# 下面的命令可以查看各种版本
+python --version  # 查看python2的版本
+python3 --version # 查看python3的版本
+pip --version     # 查看pip2的版本
+```
 
 ## 编译安装FreeSWITCH
 
@@ -166,7 +176,7 @@ echo "machine freeswitch.signalwire.com login signalwire password $TOKEN" > /etc
 echo "deb [signed-by=/usr/share/keyrings/signalwire-freeswitch-repo.gpg] https://freeswitch.signalwire.com/repo/deb/debian-release/ `lsb_release -sc` main" > /etc/apt/sources.list.d/freeswitch.list
 echo "deb-src [signed-by=/usr/share/keyrings/signalwire-freeswitch-repo.gpg] https://freeswitch.signalwire.com/repo/deb/debian-release/ `lsb_release -sc` main" >> /etc/apt/sources.list.d/freeswitch.list
 
-apt update
+apt update && apt upgrade -y
 
 # Install dependencies required for the build
 apt build-dep freeswitch -y
@@ -199,9 +209,9 @@ make hd-sounds-install
 make hd-moh-install
 make sounds-install
 make moh-install
-
-# cd /usr/src/freeswitch && make moh-install && make sounds-install && make hd-moh-install && make hd-sounds-install && make uhd-moh-install && make uhd-sounds-install && make cd-moh-install && make cd-sounds-install
 ```
+
+> 合并成一条命令`cd /usr/src/freeswitch && make moh-install && make sounds-install && make hd-moh-install && make hd-sounds-install && make uhd-moh-install && make uhd-sounds-install && make cd-moh-install && make cd-sounds-install && cd ..`
 
 ## 配置FreeSWITCH
 
@@ -460,7 +470,7 @@ vim modules.conf
 修改如下内容
 
 ```ini
-# 找到mod_mod_unimrcp一行，解除行首的注释
+# 找到mod_unimrcp一行，解除行首的注释
 asr_tts/mod_unimrcp
 ```
 
@@ -487,3 +497,45 @@ vim conf/autoload_configs/modules.conf.xml
 ```
 
 最后进入FreeSWITCH控制台`fs_cli`，在控制台中执行命令`load mod_unimrcp`，到此mod_unimrcp模块已经安装完成并在FreeSWITCH服务器生效。
+
+### 添加mod_python模块
+
+> mod_python模块可以支持用python脚本制作ivr，支持的python版本为2.7，如果需要python3的支持，需要安装mod_python3
+
+先进入FreeSWITCH的源码目录
+
+```shell
+cd /usr/src/freeswitch
+vim modules.conf
+```
+
+修改如下内容
+
+```ini
+# 找到mod_python一行，解除行首的注释
+languages/mod_python
+```
+
+保存退出后，再执行下面的命令
+
+```shell
+make mod_python-install
+```
+
+待编译安装完成后，在FreeSWITCH的安装目录`/usr/local/freeswitch`中的`mod`目录下就已经存在`mod_python.so`这个文件了。
+
+接下来要回到FreeSWITCH的安装目录
+
+```shell
+cd /usr/local/freeswitch
+vim conf/autoload_configs/modules.conf.xml
+```
+
+编辑文件内容
+
+```xml
+<!-- 找到这一行，解除注释，如果没有就直接在后面添加 -->
+<load module="mod_python"/>
+```
+
+最后进入FreeSWITCH控制台`fs_cli`，在控制台中执行命令`load mod_python`，到此mod_unimrcp模块已经安装完成并在FreeSWITCH服务器生效。
