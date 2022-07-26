@@ -18,18 +18,30 @@ http://www.stunprotocol.org/
 
 ## 部署过程
 
+* 如果是centos系统：
+
 ```bash
 # 安装依赖
 yum install -y gcc gcc-c++ make boost-devel openssl-devel
-# 下载安装包
 cd /usr/local/src
-curl -OL http://www.stunprotocol.org/stunserver-1.2.16.tgz
+```
+
+* 如果是debian系统：
+
+```bash
+apt install -y libboost1.74-all-dev
+cd /usr/src
+```
+
+```bash
+# 下载安装包
+wget http://www.stunprotocol.org/stunserver-1.2.16.tgz
 # 解压
 tar xvf stunserver-1.2.16.tgz
 # 转移目录
 mv stunserver /usr/local/
-# 安装
 cd /usr/local/stunserver
+# 安装
 make
 # 校验
 ./stuntestcode
