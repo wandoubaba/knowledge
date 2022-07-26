@@ -6,17 +6,19 @@
 
 ## freeswitch部分
 
-+ [centos7安装freeswitch1.10](freeswitch/安装freeswitch1.10.md)
-+ [ubuntu16.04安装freeswitch1.6](freeswitch/安装freeswitch1.6.md)
-+ [freeswitch命令](freeswitch/freeswitch命令.md)
-+ [freeswitch问题](freeswitch/freeswitch问题.md)
++ [Debian11编译安装FreeSWITCH1.10](freeswitch/Debian11编译安装FreeSWITCH1.10.md)
++ [CentOS7安装FreeSWITCH1.10(已经不适用了)](freeswitch/安装freeswitch1.10.md)
++ [Ubuntu16.04安装FreeSWITCH1.6](freeswitch/安装freeswitch1.6.md)
++ [FreeSWITCH命令](freeswitch/freeswitch命令.md)
++ [FreeSWITCH问题](freeswitch/freeswitch问题.md)
 + [百度MRCPServer部署](freeswitch/部署百度mrcpserver.md)
-+ [freeswitch对接百度mrcp](freeswitch/freeswitch对接百度mrcp.md)
-+ [freeswitch配置SSL证书](freeswitch/freeswitch配置ssl.md)
-+ [搭建STUN服务给freeswitch提供stun穿透](freeswitch/搭建STUN服务.md)
++ [FreeSWITCH对接百度mrcp](freeswitch/freeswitch对接百度mrcp.md)
++ [FreeSWITCH配置SSL证书](freeswitch/freeswitch配置ssl.md)
++ [搭建STUN服务给FreeSWITCH提供stun穿透](freeswitch/搭建STUN服务.md)
 
 ## linux部分
 
++ [docker操作](linux/docker操作.md)
 + [linux系统常用命令](linux/linux常用命令.md)
 + [linux系统把网卡名称改为eth0](linux/linux改网卡名.md)
 + [ubuntu系统配置静态IP](linux/ubuntu配静态IP.md)
