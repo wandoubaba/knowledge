@@ -1,10 +1,10 @@
-# 关于freeswitch及其相关技术的文档
+# 关于FreeSWITCH及其相关技术的文档
 
-> 这个仓库里尽可能的收录做freeswitch维护、开发、使用过程中可能遇到的所有技术问题
+> 这个仓库里尽可能的收录做FreeSWITCH维护、开发、使用过程中可能遇到的所有技术问题
 
 ---
 
-## freeswitch部分
+## FreeSWITCH部分
 
 + [Debian11编译安装FreeSWITCH1.10](freeswitch/Debian11编译安装FreeSWITCH1.10.md)
 + [CentOS7安装FreeSWITCH1.10(已经不适用了)](freeswitch/安装freeswitch1.10.md)
