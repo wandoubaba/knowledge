@@ -36,6 +36,18 @@ git merge iss053
 # 合并后可以删iss053分支
 git branch -d iss053
 # 如果合并时发现冲突，需要手动处理一下
+# 刷新远端分支列表
+git remote update origin -p
+# 在没有使用git add之前放弃当前全部操作
+git checkout .
+# 在使用了git add后但还没有git commit之前放弃当前全部操作
+git reset HEAD .
+git checkout .
+# 在使用了git commit后回滚操作
+git reset --hard HEAD^          # 回滚到上一次commit状态
+git reset --hard <commitid>     # 回滚到指定的任意一次提交
+# 查看commitid
+git log     # 退出请按q键
 ```
 
 ## 代码推拉
@@ -70,6 +82,8 @@ git add .
 git commit -m "这次提交的说明"
 # 推送当前分支并建立与远程上游的跟踪
 git push --set-upstream origin master
+# 把本地当前分支与远端指定分支关联（关联后在本地这个分支下直接git pull和git push就行了，不需要再加origin）
+git branch --set-upstream-to=origin/<branch>
 ```
 
 ## 在一个本地目录上添加多个远程仓库
