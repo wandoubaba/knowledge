@@ -539,3 +539,30 @@ vim conf/autoload_configs/modules.conf.xml
 ```
 
 最后进入FreeSWITCH控制台`fs_cli`，在控制台中执行命令`load mod_python`，到此mod_unimrcp模块已经安装完成并在FreeSWITCH服务器生效。
+
+### 添加mod_g729模块
+
+> FreeSWITCH源码中的G729模块只能用在透传模式下，如果想要在非透传模式下使用G729编码，就需要手动安装第三方模块
+
+通过git克隆源码，编译安装
+
+```bash
+cd /usr/src
+git clone https://github.com/abaci64/mod_g729.git
+cd mod_g729
+make
+make install
+```
+
+进入FreeSWITCH配置文件修改modules.conf.xml配置
+
+```xml
+<!--把mod_g729一行取消注释-->
+<load module="mod_g729"/>
+```
+
+然后重新启动FreeSWITCH服务，即可以使用g729编码。
+
+```shell
+bgapi originate {ignore_early_media=true,absolute_codec_string=g729\,PCMA}sofia/gateway/[YOUR_GATEWAY]/[TARGET_PHONE] &echo
+```
