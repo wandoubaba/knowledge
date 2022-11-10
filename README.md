@@ -6,7 +6,9 @@
 
 ## FreeSWITCH部分
 
-+ [Debian11编译安装FreeSWITCH1.10](freeswitch/Debian11编译安装FreeSWITCH1.10.md)
++ [Debian11安装FreeSWITCH1.10-参照ClueCon官方文档](freeswitch/Debian11安装FreeSWITCH1.10-参照ClueCon官方文档.md)
++ [Debian11编译安装FreeSWITCH1.10.8和mod_unimrcp-参照mod_unimrcp项目文档](freeswitch/Debian11编译安装FreeSWITCH1.10.8和mod_unimrcp-参照mod_unimrcp项目文档.md)
++ [搭建STUN服务](freeswitch/搭建STUN服务.md)
 + [CentOS7安装FreeSWITCH1.10(已经不适用了)](freeswitch/安装freeswitch1.10.md)
 + [Ubuntu16.04安装FreeSWITCH1.6](freeswitch/安装freeswitch1.6.md)
 + [FreeSWITCH命令](freeswitch/freeswitch命令.md)
