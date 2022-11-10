@@ -16,7 +16,23 @@ https://github.com/jselbie/stunserver
 http://www.stunprotocol.org/
 ```
 
-## 部署过程
+## 部署过程（推荐Docker）
+
+> 确保已有docke环境
+
+```bash
+# 下载安装包
+wget http://www.stunprotocol.org/stunserver-1.2.16.tgz
+# 解压
+tar xvf stunserver-1.2.16.tgz
+# 转移目录
+mv stunserver /usr/local/
+cd /usr/local/stunserver
+docker image build -t=stun-server-image .
+docker run -d -p 3478:3478/tcp -p 3478:3478/udp --name=stun-server stun-server-image
+```
+
+## 部署过程（编译安装）
 
 * 如果是centos系统：
 

@@ -1,4 +1,4 @@
-# Debian11编译安装FreeSWITCH1.10
+# Debian11安装FreeSWITCH1.10_参照ClueCon官方文档
 
 ---
 
@@ -8,20 +8,25 @@
 
 ## 安装操作系统
 
-### 配IP时可能需要用到DNS信息
+### 更换软件源
 
-| 地区运营商 | DNS |
-|---|---|
-|江苏移动|112.4.0.55, 221.131.143.69|
+> 在有些地方可能Debian10/11使用网易源速度较好
 
-### 给root配一个复杂点的密码，同时再配置一个非root的管理员账号
+```shell
+vi /etc/apt/sources.list
+```
 
-|账号|密码|
-|---|---|
-|root|BU1#0sgqX$|
-|wkzz|WKzz051223|
+```text
+deb http://mirrors.163.com/debian/ buster main non-free contrib
+deb http://mirrors.163.com/debian/ buster-updates main non-free contrib
+deb http://mirrors.163.com/debian/ buster-backports main non-free contrib
+deb http://mirrors.163.com/debian-security/ buster/updates main non-free contrib
 
-> 江苏移动用mirrors.163.com源速度比较快
+deb-src http://mirrors.163.com/debian/ buster main non-free contrib
+deb-src http://mirrors.163.com/debian/ buster-updates main non-free contrib
+deb-src http://mirrors.163.com/debian/ buster-backports main non-free contrib
+deb-src http://mirrors.163.com/debian-security/ buster/updates main non-free contrib
+```
 
 ### 系统安装完成后可以进行系统升级并安装一些基础软件
 
@@ -112,6 +117,8 @@ alias ll='ls $LS_OPTIONS -l --color=auto'
 source ~/.bashrc
 ```
 
+> 命令`echo "alias ll='ls $LS_OPTIONS -l --color=auto'" >> ~/.bashrc && source ~/.bashrc && ll`
+
 ## 安装lua和luarocks环境
 
 ### 安装lua
@@ -180,6 +187,12 @@ apt update && apt upgrade -y
 
 # Install dependencies required for the build
 apt build-dep freeswitch -y
+
+```
+
+> 命令```TOKEN=pat_jMxihv2uTh3ivpPdSqUMffB3 && apt update && apt install -yq gnupg2 wget lsb-release &&wget --http-user=signalwire --http-password=$TOKEN -O /usr/share/keyrings/signalwire-freeswitch-repo.gpg https://freeswitch.signalwire.com/repo/deb/debian-release/signalwire-freeswitch-repo.gpg && echo "machine freeswitch.signalwire.com login signalwire password $TOKEN" > /etc/apt/auth.conf && echo "deb [signed-by=/usr/share/keyrings/signalwire-freeswitch-repo.gpg] https://freeswitch.signalwire.com/repo/deb/debian-release/ `lsb_release -sc` main" > /etc/apt/sources.list.d/freeswitch.list && echo "deb-src [signed-by=/usr/share/keyrings/signalwire-freeswitch-repo.gpg] https://freeswitch.signalwire.com/repo/deb/debian-release/ `lsb_release -sc` main" >> /etc/apt/sources.list.d/freeswitch.list && apt update && apt upgrade -y && apt build-dep freeswitch -y```
+
+```shell
 
 # then let's get the source. Use the -b flag to get a specific branch
 cd /usr/src/
@@ -281,6 +294,20 @@ vim /usr/local/freeswitch/conf/autoload_configs/acl.conf.xml
     <node type="allow" cidr="183.211.245.0/25"/>
     <node type="allow" cidr="112.4.97.0/25"/>
 </list>
+```
+
+### conf/autoload_configs/switch.conf.xml中的配置项
+
+> 主要配置并发数
+
+```shell
+vim /usr/local/freeswitch/conf/autoload_configs/switch.conf.xml
+```
+
+```xml
+    <!-- 根据实际环境配置 -->
+    <param name="max-sessions" value="2000"/>
+    <param name="sessions-per-second" value="2000"/>
 ```
 
 ### conf/autoload_configs/event_socket.conf.xml中的配置项
@@ -497,6 +524,8 @@ vim conf/autoload_configs/modules.conf.xml
 ```
 
 最后进入FreeSWITCH控制台`fs_cli`，在控制台中执行命令`load mod_unimrcp`，到此mod_unimrcp模块已经安装完成并在FreeSWITCH服务器生效。
+
+> 以上方法只适用于FreeSWITCH1.10.7及之前的版本，1.10.8开始，mod_unimrcp被从核心代码中移除，转移为独立项目，详见另外一份文档
 
 ### 添加mod_python模块
 
