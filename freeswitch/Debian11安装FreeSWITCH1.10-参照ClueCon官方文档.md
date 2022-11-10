@@ -57,48 +57,6 @@ PasswordAuthentication yes
 /etc/init.d/ssh restart
 ```
 
-### 添加静态路由解决个别IP无法被本机PING通的问题
-
-```shell
-vim /etc/network/interfaces
-```
-
-在`iface ens192 inet static`配置段的后面添加两行
-
-```ini
-    up ip route add 183.211.245.35/32 via 183.211.245.1
-    down ip route del 183.211.245.35/32 via 183.211.245.1
-```
-
-修改后的完整配置应该类似下面：
-
-```ini
-iface ens192 inet static
-    address 183.211.245.51/25
-    gateway 183.211.245.1
-    up ip route add 183.211.245.35/32 via 183.211.245.1
-    down ip route del 183.211.245.35/32 via 183.211.245.1
-```
-
-### 配置DNS
-
-```shell
-vim /etc/resolv.conf
-```
-
-文件内容如下：
-
-```ini
-nameserver 112.4.0.55
-nameserver 221.131.143.69
-```
-
-修改配置后重启网卡（具体设备名称因机而异）：
-
-```shell
-ifdown ens192 && ifup ens192
-```
-
 ### 在Debian系统里启用ll命令
 
 ```shell
