@@ -28,7 +28,7 @@ wget https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/down
 
 ```bash
 # 拉取镜像并启动容器
-docker run -d -p 15672:15672 -v /data/rabbitmq/mnesia:/var/lib/rabbitmq/mnesia --hostname rabbitmq --name rabbitmq rabbitmq:3.11
+docker run -d -v /data/rabbitmq/mnesia:/var/lib/rabbitmq/mnesia --hostname rabbitmq --name rabbitmq rabbitmq:3.11-management
 ```
 
 ### 安装并启用插件
@@ -45,8 +45,6 @@ rabbitmq-plugins list
 rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 # 开启stomp插件
 rabbitmq-plugins enable rabbitmq_stomp rabbitmq_web_stomp rabbitmq_web_stomp_examples
-# 启用management插件
-rabbitmq-plugins enable rabbitmq_management
 # 要以再查看插件，确认启用的插件都生效了
 rabbitmq-plugins list
 # 退出容器
@@ -54,7 +52,6 @@ exit
 # 将启用了插件的容器提交为新镜像
 docker commit rabbitmq rabbitmq:stomp-delay
 # 停止并删除原容器
-docker stop rabbitmq
 docker rm -f rabbitmq
 ```
 
